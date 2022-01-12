@@ -1,0 +1,48 @@
+import numpy as np
+from matplotlib import pyplot as pl
+import csv
+
+def load_data():
+    with open("Vaccination data.csv","r") as file:
+        reader = csv.reader(file)
+        data_groups = []
+        dose1 = []
+        dose2 = []
+        dose3 = []
+        for row in reader:
+            data_groups.append(row[0])
+            dose1.append(float(row[1]))
+            dose2.append(float(row[2]))
+            dose3.append(float(row[3]))
+    return data_groups,dose1,dose2,dose3
+
+data_groups,dose1,dose2,dose3 = load_data()
+
+print(dose1)
+print(dose2)
+print(dose3)
+
+N = 3
+ind = np.arange(N)
+
+width = 0.25
+
+bar1 =  pl.bar(0, dose1[0], width, color = 'y')
+bar2 =  pl.bar(0.25, dose2[0], width, color='b')
+bar3 =  pl.bar(0.5, dose3[0], width, color = 'g')
+
+bar1b =  pl.bar(1, dose1[1], width, color = 'y')
+bar2b =  pl.bar(1.25, dose2[1], width, color='b')
+bar3b =  pl.bar(1.5, dose3[1], width, color = 'g')
+
+bar1c =  pl.bar(2, dose1[2], width, color = 'y')
+bar2c =  pl.bar(2.25, dose2[2], width, color='b')
+bar3c =  pl.bar(2.5, dose3[2], width, color = 'g')
+  
+pl.xlabel("Age Groups")
+pl.ylabel('Percentage of People with Vaccine Dose N')
+pl.title("Percentage of people with vaccines in different age groups")
+
+#pl.xticks(ind+width,data_groups)
+pl.legend( (bar1, bar2, bar3), ('Dose 1','Dose 2','Dose 3') )
+pl.show()
