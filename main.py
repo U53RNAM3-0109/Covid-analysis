@@ -13,6 +13,8 @@ def load_data():
         dose2 = []
         dose3 = []
         for row in reader:
+            if row[0].startswith("#"):
+                continue
             data_groups.append(row[0])
             dose1.append(float(row[1]))
             dose2.append(float(row[2]))
