@@ -46,20 +46,29 @@ def create_graph():
     pl.legend( (bar1, bar2,bar3), ('Dose 1','Dose 2','Dose 3') )
 
 def save_graph():
-    #a procedure that calls for the figure to be saved
-    pl.savefig("Covid_Analysis.png")
+    #a procedure that takes a filename, checks it and corrects it, then saves
+    filename=entry.get()
+    if not filename or filename in (".png",".jpeg",".jpg",".svg",".pdf",".raw",".ps"):
+        filename = "Covid_Anlysis" + filename
+        tk.messagebox.showinfo(message="No filename entered.\nDefaulted to \"Covid_Analysis\"")
+    pl.savefig(filename)
 
 #load data
 create_graph()
 
 #create a window
 window = tk.Tk()
-window.geometry('200x100')
+window.geometry('200x160')
 window.title("Covid Analysis")
 
 #create buttons
 show = tk.Button(window,text='View Graph',width=10,command=pl.show).place(x=40,y=20)
 save = tk.Button(window,text='Save Graph',width=10,command=save_graph).place(x=40,y=50)
+
+#label
+tk.Label(window,text="File Name:",width=12).place(x=44,y=82)
+entry = tk.Entry(window,width=12)
+entry.place(x=44,y=100)
 
 #start window
 window.mainloop()
