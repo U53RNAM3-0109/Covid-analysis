@@ -48,10 +48,15 @@ def create_graph():
 def save_graph():
     #a procedure that takes a filename, checks it and corrects it, then saves
     filename=entry.get()
-    if not filename or filename in (".png",".jpeg",".jpg",".svg",".pdf",".raw",".ps"):
+    if not filename.split(".")[0] or filename in (".png",".jpeg",".jpg",".svg",".pdf",".raw",".ps",".eps",".pgf",".rgba",".svgz",".tiff",".tif"):
         filename = "Covid_Anlysis" + filename
         tk.messagebox.showinfo(message="No filename entered.\nDefaulted to \"Covid_Analysis\"")
-    pl.savefig(filename)
+    try:
+        pl.savefig(filename)
+    except ValueError:
+        tk.messagebox.showinfo(message="Unsupported file type. Defaulted to \".png\"")
+        pl.savefig(filename.split(".")[0]+".png")
+
 
 #load data
 create_graph()
